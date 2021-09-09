@@ -1,0 +1,82 @@
+// Place all the styles related to the users/Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+img {
+	max-width: 100%;
+	width: 100%;
+	height: auto;
+}
+
+label {
+	max-width: 100%;
+	width: 100%;
+	height: auto;
+}
+
+.radius {
+	border-radius: 50%;
+	margin: 5px 0;
+	width: 65%;
+}
+
+.picture {
+  font-size: 13px;
+  padding:7px;
+  border:1px solid #ccc;
+  background:#fff;
+  box-shadow: 0 0 3px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22);
+  transition: .7s;
+}
+.picture:hover {
+  box-shadow: 0 15px 30px -5px rgba(0,0,0,.15), 0 5px 5px 0 rgba(0,0,0,.1);
+  transform: translateY(-3px) translateX(-3px);
+}
+
+.frame {
+  margin-bottom: 20px;
+}
+@media screen and (max-width:768px) {
+  .frame {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+}
+
+.title {
+  padding: 1em 1em;
+  margin: 1em 0;
+  background: #f4f4f4;
+  border-left: solid 6px #5bb7ae;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.33);
+}
+
+.title h3 {
+  margin: 0;
+  padding: 0;
+  display: inline;
+  font-size: 20px;
+}
+
+.side {
+  padding-top: 1px;
+  margin: auto;
+  background: #dbffdb;
+  border: solid 3px #5bb7ae;
+}
+
+.side .side_title {
+  font-size: 1.2em;
+  background: #5bb7ae;
+  padding: 3px;
+  text-align: center;
+  color: #FFF;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+.over-text {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}

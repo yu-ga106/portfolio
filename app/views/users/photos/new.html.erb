@@ -1,0 +1,93 @@
+<div class="row d-inline-block" style="padding: 0 10px">
+    <div class="col-md-12 title">
+        <h3>新規投稿</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12" style="max-width: 992px; margin: auto;">
+        <% if flash[:safe] %>
+          <div class="flash" style="color: red;">
+              <%= flash[:safe] %>
+          </div>
+        <% end %>
+        <%= render "users/shared/error_messages", resource: @photo %>
+    </div>
+</div>
+
+<%= form_with model: @photo, local:true do |f| %>
+  <div class="row" style="max-width: 992px; margin: 15px auto;">
+      <div class="col-md-6">
+          <label>
+              <div class="row">
+                  <div class="col-12">
+                      <%= attachment_image_tag @photo, :image, fallback: 'no_image_photo.jpg', size: '300x300', id: 'img.prev', class: "picture_stop" %>
+                  </div>
+                  <div class="col-12" style="text-align: right; font-size: 10px; clear: red;">
+                      <span style="color: red;">※5MB以上の画像はエラーが発生する可能性があります</span>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-10 btn btn-primary btn-md" style="margin: auto; margin-top: 20px;">
+                      画像選択<%= f.attachment_field :image, style: 'display: none;', id: 'photo_img' %>
+                  </div>
+              </div>
+          </label>
+      </div>
+
+      <div class="col-md-6 align-self-end">
+          <div class="form-row">
+              <div class="col-12">
+                  <%= f.text_area :word, placeholder: "ひとこと", class: "form-control", id: "input-text" %>
+                    <p style="text-align: right;" id="counter">140文字まで</p>
+              </div>
+          </div>
+          <div class="form-row" style="margin-top: 0;">
+              <div class="col-12">
+                  <%= f.text_field :tag_list, placeholder: "タグ入力 (例)　ゲームタイトル名", value: @photo.tag_list, class: "form-control" %>
+              </div>
+              <div class="col-12" style="text-align: right; font-size: 12px;">
+                  ※未入力の場合AIにより自動タグ付け(英語のみ)
+              </div>
+          </div>
+          <div class="form-row">
+              <div class="col-8">
+                  <%= f.select :range,  [["全ユーザー", "全ユーザー"], ["フォロワーのみ", "フォロワーのみ"], ["自分のみ", "自分のみ"]], {include_blank: "-- 公開範囲の選択 --"}, {class: "form-control", style: "width: 100%;"} %>
+              </div>
+              <div class="col-4">
+                  <%= f.submit '投稿する', class: "btn btn-success", style: "width: 100%" %>
+              </div>
+          </div>
+      </div>
+  </div>
+<% end %>
+
+
+
+<script type="text/javascript">
+  $(function() {
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+    $('#img_prev').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#photo_img").change(function(){
+        readURL(this);
+    });
+  });
+
+  $(function(){
+  $("#input-text").on("keyup", function() {
+    let countNum = String($(this).val().length);
+    if(countNum>30){
+      $("#counter").text(countNum + "/30").css("color", "red");
+    }else {
+      $("#counter").text(countNum + "/30").css("color", "");
+    }
+ });
+});
+</script>

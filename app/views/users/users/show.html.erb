@@ -1,0 +1,75 @@
+<div class="row d-inline-block" style="padding: 0 10px;">
+	<div class="col-md-12 title">
+		<h3><%= @name %>の投稿一覧</h3>
+	</div>
+</div>
+
+<div class="row">
+  <div class="col-md-5 col-lg-4 col-xl-3">
+    <div class="sidebar_fixed side">
+      <span class="side_title">プロフィール</span>
+      <div class="row" style="margin: 10px 0;">
+        <div class="col-12" style="text-align: center;">
+          <% if @user.image.nil? %>
+            <%= attachment_image_tag @user, :image, :fill, 200, 200, fallback: 'no_image.jpg', size: '200x200', class: "radius" %>
+          <% else %>
+            <%= link_to attachment_url(@user, :image), :rel => "lightbox" do %>
+              <%= attachment_image_tag @user, :image, :fill, 200, 200, fallback: 'no_image.jpg', size: '200x200', class: "radius" %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 over-text" style="text-align: center;">
+          <strong>
+            <%= "#{@user.last_name} #{@user.first_name}" %>　<%= "(#{@user.read_last_name} #{@user.read_first_name})" %>
+          </strong>
+        </div>
+      </div>
+      <div class="row" style="margin: 10px 0;">
+        <div class="col-12" style="heigth: auto;">
+          <h6><%= simple_format(@user.introduction) %></h6>
+        </div>
+      </div>
+      <div class="follow_counts_<%= @user.id %>">
+        <%= render partial: 'users/relationships/follow_counts', locals: { user: @user } %>
+      </div>
+      <div class="row">
+        <% if @user != current_user %>
+          <div class="col-12" style="text-align: center; margin: 10px 0;">
+            <div class="follows_buttons_<%= @user.id %>">
+              <%= render partial: 'users/relationships/follow_button', locals: { user: @user } %>
+            </div>
+          </div>
+        <% else %>
+          <div class="col-12" style="text-align: right; margin: 10px 0; padding-right: 10%">
+            <%= link_to edit_user_path(current_user), style: "text-decoration: none; color: gray;" do %>
+              <i class="fas fa-wrench"> 編集</i>
+            <% end %>
+            <%= link_to notifications_path, style: "margin-left: 30px;" do %>
+              <% if notifications_count > 0 %>
+                <span class="fa-stack">
+                  <i class="fas fa-bell fa-stack-2x"></i>
+                  <span class="fa-stack fa-stack-1x counter"><%= @notifications %></span>
+                </span>
+              <% else %>
+                <span class="fa-stack">
+                  <i class="fas fa-bell fa-stack-2x"></i>
+                </span>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-7 col-lg-8 col-xl-9">
+    <% @photos_array.each do |photo| %>
+      <%= render partial: 'users/photos/photo', locals: { photo: photo } %>
+    <% end %>
+    <div style="clear: both;">
+      <%= paginate @photos_array %>
+    </div>
+  </div>
+</div>
