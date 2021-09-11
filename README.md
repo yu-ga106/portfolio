@@ -1,5 +1,18 @@
 # Gamers Sns
 
+## サイトURL
+ユーザー側  
+http://18.180.51.191/  
+  
+テストユーザーログイン  
+　メールアドレス：test@example.com  
+　パスワード：usertest  
+ 
+管理者側  
+  http://18.180.51.191/admins/sign_in  
+　メールアドレス：admin@gamers  
+　パスワード：password  
+
 ## サイト概要
 様々なゲームのスクリーンショットを、一言と共に共有することができる  
 ゲーム好きな人に特化したSNSです。
